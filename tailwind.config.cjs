@@ -61,6 +61,7 @@ module.exports = {
       typography: {
         DEFAULT: {
           css: {
+            maxWidth: '5xl', // add required value here
             pre: {
               color: false,
             },

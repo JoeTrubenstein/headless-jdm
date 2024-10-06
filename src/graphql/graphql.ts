@@ -1,29 +1,3 @@
-import type socialIcons from "@assets/socialIcons";
-
-export type Site = {
-  website: string;
-  author: string;
-  profile: string;
-  desc: string;
-  title: string;
-  ogImage?: string;
-  lightAndDarkMode: boolean;
-  postPerIndex: number;
-  postPerPage: number;
-  scheduledPostMargin: number;
-};
-
-export type FormHTMLAttributes = {
-  netlify: string;
-}
-
-export type SocialObjects = {
-  name: keyof typeof socialIcons;
-  href: string;
-  active: boolean;
-  linkTitle: string;
-}[];
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {

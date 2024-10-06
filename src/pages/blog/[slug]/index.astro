@@ -1,0 +1,76 @@
+---
+import { wpquery } from "../../../graphql/wordpress";
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import Datetime from "@components/Datetime";
+
+export async function getStaticPaths() {
+  const data = await wpquery({
+    query: `
+      query LoadAllPosts {
+        posts  {
+          nodes {
+            title
+            slug
+            date
+            modified
+            featuredImage {
+              node {
+                mediaItemUrl
+                srcSet
+                sizes
+                altText
+              }
+            }
+            content(format: RENDERED)
+            author {
+              node {
+                name
+              }
+            }
+          }
+        }
+      }
+    `,
+  });
+
+  return data.posts.nodes.map((post: any) => {
+    return {
+      params: { slug: post.slug },
+      props: { post },
+    };
+  });
+}
+
+const { post } = Astro.props;
+
+---
+
+<Layout title={post['title']}>
+  <Header />
+  <section class="py-6 prose prose-img:w-full prose-img:aspect-video prose-img:object-cover w-full mb-6">
+    <img
+      src={post['featuredImage']['node']['mediaItemUrl']}
+      srcset={post['featuredImage']['node']['srcSet']}
+      sizes={post['featuredImage']['node']['sizes']}
+      alt={post['featuredImage']['node']['alt']}
+    />
+
+    <h1>{post['title']}</h1>
+
+    <p class="byline">Written by {post['author']['node']['name']}</p>
+
+    <Datetime
+    pubDatetime={post['date']}
+    modDatetime={post['modified']}
+  />
+
+    <Fragment set:html={post['content']} />
+
+    <p>
+      <a href="../blog">all posts</a>
+    </p>
+  </section>
+  <Footer />
+</Layout>

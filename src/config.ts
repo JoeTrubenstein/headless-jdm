@@ -1,15 +1,15 @@
 import type { Site, SocialObjects } from "./types";
 
 export const SITE: Site = {
-  website: "https://astro-paper.pages.dev/", // replace this with your deployed domain
-  author: "Sat Naing",
-  profile: "https://satnaing.dev/",
-  desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
-  title: "AstroPaper",
-  ogImage: "astropaper-og.jpg",
+  website: "https://jdmcafe.com/", // replace this with your deployed domain
+  author: "Joe Trubenstein",
+  profile: "https://jdmcafe,com/",
+  desc: "Enjoying vehicles from the Japanese Domestic Market",
+  title: "JDM Cafe",
+  ogImage: "https://res.cloudinary.com/indridcold/image/upload/v1725798081/JDM/cs2z5qoza036hoprnxht.png",
   lightAndDarkMode: true,
-  postPerIndex: 4,
-  postPerPage: 3,
+  postPerIndex: 3,
+  postPerPage: 9,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
 };
 
@@ -28,25 +28,25 @@ export const LOGO_IMAGE = {
 export const SOCIALS: SocialObjects = [
   {
     name: "Github",
-    href: "https://github.com/satnaing/astro-paper",
+    href: "https://github.com/joeTrubenstein",
     linkTitle: ` ${SITE.title} on Github`,
     active: true,
   },
   {
     name: "Facebook",
-    href: "https://github.com/satnaing/astro-paper",
+    href: "https://www.facebook.com/profile.php?id=61565177264385",
     linkTitle: `${SITE.title} on Facebook`,
     active: true,
   },
   {
     name: "Instagram",
-    href: "https://github.com/satnaing/astro-paper",
+    href: "https://www.instagram.com/jdm.cafe/",
     linkTitle: `${SITE.title} on Instagram`,
     active: true,
   },
   {
     name: "LinkedIn",
-    href: "https://github.com/satnaing/astro-paper",
+    href: "https://www.linkedin.com/in/joe-trubenstein-506189b3/",
     linkTitle: `${SITE.title} on LinkedIn`,
     active: true,
   },

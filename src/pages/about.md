@@ -3,34 +3,23 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-AstroPaper is a minimal, responsive and SEO-friendly Astro blog theme. I designed and crafted this based on [my personal blog](https://satnaing.dev/blog).
+"I find it hard to imagine other JDM sales consultants put in as much energy and care as Joe. I’d be foolish to work with anyone else."
 
-This theme is aimed to be accessible out of the box. Light and dark mode are supported by
-default and additional color schemes can also be configured.
+### - Kevin C., Entrepreneur | JDM Enthusiast
 
-This theme is self-documented \_ which means articles/posts in this theme can also be considered as documentations. So, see the documentation for more info.
 
-<div>
-  <img src="/assets/dev.svg" class="sm:w-1/2 mx-auto" alt="coding dev illustration">
-</div>
+![Joe Trubenstein](https://res.cloudinary.com/indridcold/image/upload/v1725782468/JDM/qusjiokmd22ltkxxu84f.webp)
 
-## Tech Stack
+Originally from Staten Island, and now based in Tokyo - I spend my my days demystifying the JDM export process for overseas businesses and individuals.
 
-This theme is written in vanilla JavaScript (+ TypeScript for type checking) and a little bit of ReactJS for some interactions. TailwindCSS is used for styling; and Markdown is used for blog contents.
+I partner with carefully selected JDM exporters to provide end-to-end solutions in English and Japanese:
 
-## Features
+Currently - I work exclusively with [JPC TRADE](https://jpctrade.com) to provide end-to-end export solutions in English and Japanese:
 
-Here are certain features of this site.
+- Access to Japanese auction houses and dealers
+- On-site vehicle inspections
+- Domestic inland transportation
+- Short and long-term storage
+- Container and ro-ro shipping
 
-- fully responsive and accessible
-- SEO-friendly
-- light & dark mode
-- fuzzy search
-- super fast performance
-- draft posts
-- pagination
-- sitemap & rss feed
-- highly customizable
-
-If you like this theme, you can star/contribute to the [repo](https://github.com/satnaing/astro-paper).  
-Or you can even give any feedback via my [email](mailto:contact@satnaing.dev).
+For CIF quotes, translations, and more information - [contact me](../contact) today.

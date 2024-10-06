@@ -1,22 +1,22 @@
 ---
-import Layout from "@layouts/Layout.astro";
-import Main from "@layouts/Main.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import Pagination from "@components/Pagination.astro";
-import { wpquery } from "../graphql/wordpress";
-import Datetime from "../components/Datetime";
-import Card from "@components/Card";
 import { SITE } from "@config";
-import type { Page } from "astro";
-import type { CollectionEntry } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import { wpquery } from "graphql/wordpress";
+import Main from "@layouts/Main.astro";
+import Posts from "@layouts/Posts.astro";
+import Datetime from "@components/Datetime";
+import Pagination from "@components/Pagination.astro";
+import Footer from "@components/Footer.astro";
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import getSortedPosts from "@utils/getSortedPosts";
 import type { Post } from "types";
 
-export interface Props {
-  page: Page<CollectionEntry<"blog">>;
-}
+// https://docs.astro.build/en/guides/routing/#the-page-prop
 
-const { page } = Astro.props;
+export const getStaticPaths = (async ({ paginate }) => {
+
 
 
 const data = await wpquery({
@@ -59,15 +59,20 @@ const data = await wpquery({
   `,
 });
 
+  return paginate(data.posts.nodes, { pageSize: 2 })
+
+
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
 ---
 
 <Layout title={`Posts | ${SITE.title}`}>
   <Header activeNav="blog" />
-  <Main pageTitle="Blog" pageDesc="All the articles I've posted.">
-
+  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
         <ul>
           <div class="lg:grid-cols-3 grid gap-8 sm:grid-cols-2">
-            {data.posts.nodes.map((post: Post) => {
+            {page.data.map((post: any) => {
               return (
                 <li class="">
                   <div class="max-w-sm overflow-hidden rounded">
@@ -123,5 +128,5 @@ const data = await wpquery({
   <Pagination {page} />
 
   <Footer noMarginTop={page.lastPage > 1} />
-    
+  
 </Layout>

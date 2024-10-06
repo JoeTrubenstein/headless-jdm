@@ -1,5 +1,8 @@
 ---
 import { getCollection } from "astro:content";
+import { wpquery } from "../graphql/wordpress";
+import type { Post } from "../graphql/graphql";
+import Datetime from "../components/Datetime";
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
@@ -15,45 +18,86 @@ const posts = await getCollection("blog");
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
-
 const socialCount = SOCIALS.filter(social => social.active).length;
+
+const data = await wpquery({
+  query: `
+  {
+  posts(first: 2) {
+    nodes {
+      date
+      modified
+      uri
+      title
+      slug
+      author {
+        node {
+          name
+        }
+      }
+      commentCount
+      excerpt
+      categories {
+        nodes {
+          name
+          uri
+        }
+      }
+      featuredImage {
+        node {
+          srcSet
+          sourceUrl
+          altText
+          mediaDetails {
+            height
+            width
+          }
+        }
+      }
+    }
+  }
+}
+  `,
+});
 ---
 
 <Layout>
   <Header />
   <main id="main-content">
     <section id="hero">
-      <h1>Mingalaba</h1>
-      <a
+      <h1>JDM Cafe</h1>
+      <!-- <a
         target="_blank"
         href="/rss.xml"
         class="rss-link"
         aria-label="rss feed"
         title="RSS Feed"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon"
-          ><path
-            d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"
-          ></path><path
-            d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z"
-          ></path><circle cx="6" cy="18" r="2"></circle>
-        </svg>
-        <span class="sr-only">RSS Feed</span>
-      </a>
+      > -->
+      <svg
+      class="rss-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      height="24px"
+      viewBox="0 -960 960 960"
+      width="24px"
+    >
+      <path
+        d="M160-120v-80h640v80H160Zm160-160q-66 0-113-47t-47-113v-400h640q33 0 56.5 23.5T880-760v120q0 33-23.5 56.5T800-560h-80v120q0 66-47 113t-113 47H320Zm0-80h240q33 0 56.5-23.5T640-440v-320H240v320q0 33 23.5 56.5T320-360Zm400-280h80v-120h-80v120ZM320-360h-80 400-320Z"
+      ></path>
+    </svg>
+        <!-- <span class="sr-only">RSS Feed</span> -->
+
+      <!-- </a> -->
 
       <p>
-        AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro
-        blog theme. This theme follows best practices and provides accessibility
-        out of the box. Light and dark mode are supported by default. Moreover,
-        additional color schemes can also be configured.
+        Learn about buying cars from the Japanese Domestic Market. Access dealers, auction houses, and private sellers with concierge-style export assitance.
       </p>
       <p>
-        Read the blog posts or check
+        Check out my posts or
         <LinkButton
           className="underline decoration-dashed underline-offset-4 hover:text-skin-accent"
           href="https://github.com/satnaing/astro-paper#readme"
         >
-          README
+          contact me
         </LinkButton> for more info.
       </p>
       {
@@ -75,13 +119,50 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           <section id="featured">
             <h2>Featured</h2>
             <ul>
-              {featuredPosts.map(({ data, slug }) => (
-                <Card
-                  href={`/posts/${slug}/`}
-                  frontmatter={data}
-                  secHeading={false}
-                />
-              ))}
+              <div class="lg:grid-cols-3 grid gap-8 sm:grid-cols-2">
+                {data.posts.nodes.map((post: Post) => {
+                  return (
+                    <li class="">
+                      <div class="max-w-sm overflow-hidden rounded">
+                        <img
+                          class="w-full"
+                          src={post.featuredImage?.node.mediaItemUrl}
+                          srcset={post.featuredImage?.node.srcSet}
+                          sizes={post.featuredImage?.node.sizes}
+                          alt={post.featuredImage?.node.altText}
+                        />
+
+                        <div class="py-4">
+                          <Datetime
+                            pubDatetime={String(post.date)}
+                            modDatetime={post.modified}
+                          />
+                          <a href={`/blog/${post.slug}`}>
+                            <h3 class="inline-block text-lg mt-2 font-medium text-skin-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0">
+                              {post.title}
+                            </h3>
+                          </a>
+                          <p
+                            set:html={post.excerpt}
+                            class="text-skin-soft mb-5 line-clamp-3"
+                          />
+                        </div>
+                        {/* <div class="px-6 pb-2 pt-4">
+                        <span class="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
+                          #photography
+                        </span>
+                        <span class="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
+                          #travel
+                        </span>
+                        <span class="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
+                          #winter
+                        </span>
+                      </div> */}
+                      </div>
+                    </li>
+                  );
+                })}
+              </div>
             </ul>
           </section>
           {recentPosts.length > 0 && <Hr />}
@@ -89,7 +170,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
       )
     }
 
-    {
+    <!-- {
       recentPosts.length > 0 && (
         <section id="recent-posts">
           <h2>Recent Posts</h2>
@@ -107,9 +188,9 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           </ul>
         </section>
       )
-    }
+    } -->
 
-    <div class="all-posts-btn-wrapper">
+    <!-- <div class="all-posts-btn-wrapper">
       <LinkButton href="/posts/">
         All Posts
         <svg xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +199,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           ></path>
         </svg>
       </LinkButton>
-    </div>
+    </div> -->
   </main>
 
   <Footer />
