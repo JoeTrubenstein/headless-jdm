@@ -22,7 +22,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 const data = await wpquery({
   query: `
   {
-  posts {
+  posts (where: {categoryName:"how-to"}) {
     nodes {
       date
       modified

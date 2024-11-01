@@ -9,7 +9,7 @@ export async function getStaticPaths() {
   const data = await wpquery({
     query: `
       query LoadAllPosts {
-        posts (where: {categoryName:"how-to"}) {
+        posts (where: {categoryName:"cars"}) {
           nodes {
             title
             slug
@@ -71,7 +71,7 @@ const { post } = Astro.props;
       <a href="../contact">contact</a>
     </p>
     <p>
-      <a href="../blog">all posts</a>
+      <a href="../cars">all cars</a>
     </p>
   </section>
   <Footer />

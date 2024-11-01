@@ -22,7 +22,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 const data = await wpquery({
   query: `
   {
-  posts (where: {categoryName:"how-to"}) {
+  posts (where: {categoryName:"cars"}) {
     nodes {
       date
       modified
@@ -61,15 +61,14 @@ const data = await wpquery({
 
   return paginate(data.posts.nodes, { pageSize: 2 })
 
-
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
 ---
 
 <Layout title={`Posts | ${SITE.title}`}>
-  <Header activeNav="blog" />
-  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
+  <Header activeNav="cars" />
+  <Main pageTitle="Cars" pageDesc="All the cars I've posted.">
         <ul>
           <div class="lg:grid-cols-3 grid gap-8 sm:grid-cols-2">
             {page.data.map((post: any) => {
@@ -89,7 +88,7 @@ const { page } = Astro.props;
                         pubDatetime={String(post.date)}
                         modDatetime={post.modified}
                       />
-                      <a href={`/blog/${post.slug}`}>
+                      <a href={`/cars/${post.slug}`}>
                         <h3 class="inline-block text-lg mt-2 font-medium text-skin-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0">
                           {post.title}
                         </h3>
