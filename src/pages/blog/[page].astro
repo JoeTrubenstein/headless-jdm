@@ -59,7 +59,7 @@ const data = await wpquery({
   `,
 });
 
-  return paginate(data.posts.nodes, { pageSize: 2 })
+  return paginate(data.posts.nodes, { pageSize: 4 })
 
 
 }) satisfies GetStaticPaths;
