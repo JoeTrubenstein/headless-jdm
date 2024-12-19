@@ -23,7 +23,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
 const data = await wpquery({
   query: `
   {
-  posts (where: {categoryName:"how-to"} first:2) {
+  posts (where: {categoryName:"how-to"} first:4) {
     nodes {
       date
       modified
