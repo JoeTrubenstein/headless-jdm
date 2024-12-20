@@ -6,7 +6,7 @@ export const SITE: Site = {
   profile: "https://jdmcafe,com/",
   desc: "Enjoying vehicles from the Japanese Domestic Market",
   title: "Joe Trubenstein",
-  ogImage: "https://res.cloudinary.com/indridcold/image/upload/v1725798081/JDM/cs2z5qoza036hoprnxht.png",
+  ogImage: "https://res.cloudinary.com/indridcold/image/upload/v1734703209/BMJ/kfq6x76fd0bfebj5r4ds.png",
   lightAndDarkMode: true,
   postPerIndex: 3,
   postPerPage: 9,
